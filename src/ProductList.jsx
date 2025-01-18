@@ -294,6 +294,7 @@ function ProductList() {
                                      <div className="product-cost">{plant.cost}</div>
                                      <div className="product-description">{plant.description}</div>
                                      <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                     <button onClick={handleContinueShopping}>Continue Shopping</button>
                                     </div>
                                     ))}
                                 </div>

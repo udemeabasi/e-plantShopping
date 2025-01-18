@@ -8,30 +8,53 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
- 
+  const calculateTotalAmount = (cartItems) => {
+    return cartItems.reduce((total, item) => {
+      return total + item.quantity * item.cost;
+    }, 0);
   };
 
-  const handleContinueShopping = (e) => {
-   
+  const handleContinueShopping = () => {
+    // Logic to navigate back to the plant listing page
+    // If using React Router, you might use history.push or navigate
+    history.push('/plant-listing'); // Example using React Router
+  };
+
+  // Calculate the total for all items in the cart
+  const calculateTotalForAllItems = (cartItems) => {
+    return cartItems.reduce((total, item) => {
+      return total + item.quantity * item.cost;
+    }, 0);
+  };
+
+  // Handling Check out
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
   };
 
 
-
-  const handleIncrement = (item) => {
+  const handleIncrement = (itemName) => {
+    dispatch(updateQuantity({ name: itemName, quantityChange: 1 }));
   };
 
-  const handleDecrement = (item) => {
-   
+  const handleDecrement = (itemName) => {
+    const item = cartItems.find(item => item.name === itemName);
+    if (item.quantity > 1) {
+      dispatch(updateQuantity({ name: itemName, quantityChange: -1 }));
+    } else {
+      dispatch(removeItem(itemName));
+    }
   };
 
-  const handleRemove = (item) => {
+  const handleRemove = (itemName) => {
+    dispatch(removeItem(itemName));
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    return item.quantity * item.cost;
   };
-
+  
   return (
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
